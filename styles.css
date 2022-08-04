@@ -10,5 +10,26 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  /* background-color: pink; */
+}
+
+.squares-container {
+  width: 25rem;
+  height: 25rem;
+  flex-wrap: wrap;
+}
+
+.square {
+  /* background-color: lightblue; */
+}
