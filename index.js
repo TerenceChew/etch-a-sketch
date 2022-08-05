@@ -11,7 +11,7 @@ function getGridSize() {
   gridSize = Number(prompt('Enter Grid Size:', ''));
   if (gridSize > 100) {
     alert('Grid size cannot exceed 100');
-    assignGridSize();
+    getGridSize();
   } else if (!gridSize) {
     return;
   }
@@ -26,7 +26,7 @@ inputBtn.addEventListener('click', getGridSize);
 function createSquares(gridSize) {
   for (let i = 1; i <= gridSize * gridSize; i++) {
     const square = document.createElement('div');
-    square.textContent = `${i}`;
+    // square.textContent = `${i}`;
     // 25rem is the squaresContainer's width & height
     square.style.width = `calc(25rem / ${gridSize})`;
     square.style.height = `calc(25rem / ${gridSize})`;
