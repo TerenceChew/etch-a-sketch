@@ -34,7 +34,7 @@ function createSquares(gridSize) {
   squaresContainer.textContent = '';
   for (let i = 1; i <= gridSize * gridSize; i++) {
     const square = document.createElement('div');
-    square.textContent = `${i}`;
+    // square.textContent = `${i}`;
     // 25rem is the squaresContainer's width & height
     square.style.width = `calc(25rem / ${gridSize})`;
     square.style.height = `calc(25rem / ${gridSize})`;
@@ -52,7 +52,7 @@ function sketch(e) {
   // square.textContent = '';
   // Only responds to left mousedown || mouseover
   if (e.buttons === 1) {
-    square.style.backgroundColor = 'pink';
+    square.style.backgroundColor = generateRgbColor();
   }
 }
 
@@ -77,3 +77,11 @@ function removeEventListenerFromSquares(e) {
 
 // Disable context menu from getting triggered in squaresContainer
 squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+
+function generateRgbNumber() {
+  return Math.floor(Math.random() * 256);
+}
+
+function generateRgbColor() {
+  return `rgb(${generateRgbNumber()}, ${generateRgbNumber()}, ${generateRgbNumber()})`;
+}
