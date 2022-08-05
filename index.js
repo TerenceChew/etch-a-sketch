@@ -38,21 +38,22 @@ function createSquares(gridSize) {
     // 25rem is the squaresContainer's width & height
     square.style.width = `calc(25rem / ${gridSize})`;
     square.style.height = `calc(25rem / ${gridSize})`;
-    square.addEventListener('mousedown', sketch, {once: true});
+    square.addEventListener('mousedown', sketch);
     square.classList.add('square', 'center');    
     squaresContainer.append(square);
   }
-}
+} 
 
 // Change bg color of square
 function sketch(e) {
   e.preventDefault();
-  console.log('sketch, event is:', e.type, 'key:', e.buttons);
+  console.log('Sketch, event is:', e.type, 'key:', e.buttons);
   let square = e.target;
   // square.textContent = '';
   // Only responds to left mousedown || mouseover
   if (e.buttons === 1) {
     square.style.backgroundColor = generateRgbColor();
+    decreaseBrightness(square);
   }
 }
 
@@ -63,7 +64,7 @@ function addEventListenerToSquares(e) {
   console.log('sC mousedown addEL, event is:', e.type, 'key:', e.buttons);
   e.preventDefault();
   const squares = Array.from(squaresContainer.children);
-  squares.forEach(square => square.addEventListener('mouseover', sketch, {once: true}))
+  squares.forEach(square => square.addEventListener('mouseover', sketch))
 }
 
 // mouseup on window, remove event listener from each square
@@ -72,7 +73,7 @@ window.addEventListener('mouseup', removeEventListenerFromSquares);
 function removeEventListenerFromSquares(e) {
   console.log('window mouseup removeEL, event is:', e.type, 'key:', e.buttons);
   const squares = Array.from(squaresContainer.children);
-  squares.forEach(square => square.removeEventListener('mouseover', sketch, {once: true}))
+  squares.forEach(square => square.removeEventListener('mouseover', sketch))
 }
 
 // Disable context menu from getting triggered in squaresContainer
@@ -84,4 +85,25 @@ function generateRgbNumber() {
 
 function generateRgbColor() {
   return `rgb(${generateRgbNumber()}, ${generateRgbNumber()}, ${generateRgbNumber()})`;
+}
+
+// Decrease brightness by 10 percent 
+function decreaseBrightness(square) {
+  const pattern = /\((.*)\)/;
+  const currBrightnessVal = Number(window.getComputedStyle(square).getPropertyValue('filter').match(pattern)[1]);
+
+  console.log('Curr BV', currBrightnessVal);
+
+  if (!currBrightnessVal) {
+    console.log('Min brightness');
+    return;
+  };
+
+  const newBrightnessVal = currBrightnessVal - 0.1;
+
+  console.log('New BV', newBrightnessVal);
+
+  square.style.filter = `Brightness(${newBrightnessVal})`;
+
+  console.log('After update', window.getComputedStyle(square).getPropertyValue('filter'));
 }
