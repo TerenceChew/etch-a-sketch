@@ -1,14 +1,32 @@
 const squaresContainer = document.querySelector('.squares-container');
-// console.log(squaresContainer.width) ?? or style.width ??
-let gridSize = 75;
+const inputBtn = document.querySelector('.input-btn');
 
-createSquares(gridSize);
+// Create squares with default grid size
+let defaultGridSize = 5;
+createSquares(defaultGridSize);
+
+// Prompt grid size to create squares
+function getGridSize() {
+  squaresContainer.textContent = '';
+  gridSize = Number(prompt('Enter Grid Size:', ''));
+  if (gridSize > 100) {
+    alert('Grid size cannot exceed 100');
+    assignGridSize();
+  } else if (!gridSize) {
+    return;
+  }
+  else {
+    createSquares(gridSize);
+  }
+}
+
+inputBtn.addEventListener('click', getGridSize);
 
 // Create and append squares to squaresContainer
 function createSquares(gridSize) {
   for (let i = 1; i <= gridSize * gridSize; i++) {
     const square = document.createElement('div');
-    // square.textContent = `${i}`;
+    square.textContent = `${i}`;
     // 25rem is the squaresContainer's width & height
     square.style.width = `calc(25rem / ${gridSize})`;
     square.style.height = `calc(25rem / ${gridSize})`;
