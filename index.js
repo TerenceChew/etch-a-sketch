@@ -1,32 +1,40 @@
 const squaresContainer = document.querySelector('.squares-container');
 const inputBtn = document.querySelector('.input-btn');
+const resetBtn = document.querySelector('.reset-btn');
 
 // Create squares with default grid size
-let defaultGridSize = 5;
+let defaultGridSize = 3;
 createSquares(defaultGridSize);
+
+let gridSize;
 
 // Prompt grid size to create squares
 function getGridSize() {
-  squaresContainer.textContent = '';
   gridSize = Number(prompt('Enter Grid Size:', ''));
+  if (!gridSize) return;
   if (gridSize > 100) {
     alert('Grid size cannot exceed 100');
     getGridSize();
-  } else if (!gridSize) {
-    return;
-  }
-  else {
+  } else {
     createSquares(gridSize);
   }
 }
 
 inputBtn.addEventListener('click', getGridSize);
 
+// Reset squares to default color
+function resetSquares() {
+  createSquares(gridSize || defaultGridSize);
+}
+
+resetBtn.addEventListener('click', resetSquares); 
+
 // Create and append squares to squaresContainer
 function createSquares(gridSize) {
+  squaresContainer.textContent = '';
   for (let i = 1; i <= gridSize * gridSize; i++) {
     const square = document.createElement('div');
-    // square.textContent = `${i}`;
+    square.textContent = `${i}`;
     // 25rem is the squaresContainer's width & height
     square.style.width = `calc(25rem / ${gridSize})`;
     square.style.height = `calc(25rem / ${gridSize})`;
