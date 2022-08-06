@@ -90,7 +90,7 @@ function generateRgbColor() {
 // Decrease brightness by 10 percent 
 function decreaseBrightness(square) {
   const pattern = /\((.*)\)/;
-  const currBrightnessVal = Number(window.getComputedStyle(square).getPropertyValue('filter').match(pattern)[1]);
+  const currBrightnessVal = Number(getComputedStyle(square).getPropertyValue('filter').match(pattern)[1]);
 
   console.log('Curr BV', currBrightnessVal);
 
@@ -105,5 +105,5 @@ function decreaseBrightness(square) {
 
   square.style.filter = `Brightness(${newBrightnessVal})`;
 
-  console.log('After update', window.getComputedStyle(square).getPropertyValue('filter'));
+  console.log('After update', getComputedStyle(square).getPropertyValue('filter'));
 }
