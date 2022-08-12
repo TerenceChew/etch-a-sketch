@@ -1,6 +1,6 @@
 const squaresContainer = document.querySelector('.squares-container');
-const inputBtn = document.querySelector('.input-btn');
-const resetBtn = document.querySelector('.reset-btn');
+const inputBtn = document.querySelector('.size');
+const resetBtn = document.querySelector('.reset');
 
 // Create squares with default grid size
 let defaultGridSize = 3;
@@ -36,10 +36,10 @@ function createSquares(gridSize) {
     const square = document.createElement('div');
     // square.textContent = `${i}`;
     // 25rem is the squaresContainer's width & height
-    square.style.width = `calc(25rem / ${gridSize})`;
-    square.style.height = `calc(25rem / ${gridSize})`;
+    square.style.width = `calc(16.5rem / ${gridSize})`;
+    square.style.height = `calc(16.5rem / ${gridSize})`;
     square.addEventListener('mousedown', sketch);
-    square.classList.add('square', 'center');    
+    square.classList.add('square');    
     squaresContainer.append(square);
   }
 } 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Russo+One&family=Shadows+Into+Light&display=swap');
+
 *,
 *::before,
 *::after {
@@ -10,8 +12,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .center {
@@ -20,18 +20,71 @@ body {
   align-items: center;
 }
 
-.content {
-  /* background-color: pink; */
+header {
+  padding: 1rem .35rem;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 2rem;
+  word-spacing: .15rem;
+  letter-spacing: .18rem;
+  font-weight: bold;
+  text-shadow: 2px 1px 2px cyan, -2px -1px 2px rgb(255, 53, 255);
+  background-color: black;
+  color: white;
+}
+
+.main-container {
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 .5rem;
 }
 
 .squares-container {
-  width: 25rem;
-  height: 25rem;
+  width: 16.5rem;
+  height: 16.5rem;
   flex-wrap: wrap;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15), -2px 0 5px 1px rgba(0, 0, 0, 0.15);
   border-radius: .1rem;
+  background-color: white;
 }
 
 .square {
   filter: brightness(1.1);
+}
+
+.btns-container {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modes, .cleaning {
+  gap: 1rem;
+}
+
+.btn {
+  min-width: 7.55rem;
+  padding: .55rem .75rem;
+  border-top: .15rem solid rgb(255, 53, 255);
+  border-right: .15rem solid rgb(255, 53, 255);
+  border-bottom: .15rem solid cyan;
+  border-left: .15rem solid cyan;
+  border-radius: .25rem;
+  background-color: black;
+  font-family: 'Russo One', sans-serif;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 2px 0 2px rgb(255, 53, 255), -2px 0 2px cyan;
+  cursor: pointer;
+}
+
+.size {
+  width: 100%;
+}
+
+footer {
+  background-color: black;
+  padding: 1.25rem .5rem;
+  color: white;
+  text-shadow: 2px 0 2px rgb(255, 53, 255), -2px 0 2px cyan;
+  font-family: 'JetBrains Mono', monospace;
 }
