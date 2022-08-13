@@ -1,14 +1,32 @@
+// Mode determines which pen to use
+let mode = 'Color';
+
+// Selectors
 const squaresContainer = document.querySelector('.squares-container');
+const normalBtn = document.querySelector('.normal');
+const colorBtn = document.querySelector('.color');
+const eraserBtn = document.querySelector('.eraser');
 const inputBtn = document.querySelector('.size');
 const resetBtn = document.querySelector('.reset');
 
+// Event listeners
+normalBtn.addEventListener('click', determineMode);
+colorBtn.addEventListener('click', determineMode);
+eraserBtn.addEventListener('click', determineMode);
+inputBtn.addEventListener('click', getGridSize);
+resetBtn.addEventListener('click', resetSquares);
+squaresContainer.addEventListener('mousedown', addEventListenersToSquares, true);
+window.addEventListener('mouseup', removeEventListenersFromSquares);
+squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+
 // Create squares with default grid size
-let defaultGridSize = 3;
+let defaultGridSize = 5;
 createSquares(defaultGridSize);
 
+// Custom grid size
 let gridSize;
 
-// Prompt grid size to create squares
+// Prompt custom grid size
 function getGridSize() {
   gridSize = Number(prompt('Enter Grid Size:', ''));
   if (!gridSize) return;
@@ -20,36 +38,24 @@ function getGridSize() {
   }
 }
 
-inputBtn.addEventListener('click', getGridSize);
-
-// Reset squares to default color
-function resetSquares() {
-  createSquares(gridSize || defaultGridSize);
+function determineMode(e) {
+  mode = e.target.innerText;
 }
 
-resetBtn.addEventListener('click', resetSquares); 
-
-// Create and append squares to squaresContainer
-function createSquares(gridSize) {
-  squaresContainer.textContent = '';
-  for (let i = 1; i <= gridSize * gridSize; i++) {
-    const square = document.createElement('div');
-    // square.textContent = `${i}`;
-    // 25rem is the squaresContainer's width & height
-    square.style.width = `calc(16.5rem / ${gridSize})`;
-    square.style.height = `calc(16.5rem / ${gridSize})`;
-    square.addEventListener('mousedown', sketch);
-    square.classList.add('square');    
-    squaresContainer.append(square);
-  }
-} 
-
-// Change bg color of square
-function sketch(e) {
+// Black
+function normalPen(e) {
   e.preventDefault();
-  console.log('Sketch, event is:', e.type, 'key:', e.buttons);
   let square = e.target;
-  // square.textContent = '';
+  // Only responds to left mousedown || mouseover
+  if (e.buttons === 1) {
+    square.style.backgroundColor = 'black';
+  }
+}
+
+// Colorful 
+function colorPen(e) {
+  e.preventDefault();
+  let square = e.target;
   // Only responds to left mousedown || mouseover
   if (e.buttons === 1) {
     square.style.backgroundColor = generateRgbColor();
@@ -57,27 +63,61 @@ function sketch(e) {
   }
 }
 
-// mousedown on squaresContainer, add event listener to each square
-squaresContainer.addEventListener('mousedown', addEventListenerToSquares, true);
+// Eraser
+function erasePen(e) {
+  e.preventDefault();
+  let square = e.target;
+  // Only responds to left mousedown || mouseover
+  if (e.buttons === 1) {
+    square.style.backgroundColor = 'white';
+    square.style.filter = 'brightness(1.1)';
+  }
+}
 
-function addEventListenerToSquares(e) {
-  console.log('sC mousedown addEL, event is:', e.type, 'key:', e.buttons);
+// Reset squares to default color
+function resetSquares() {
+  createSquares(gridSize || defaultGridSize);
+}
+
+// Create and append squares to squaresContainer
+function createSquares(gridSize) {
+  squaresContainer.textContent = '';
+  let width = getComputedStyle(squaresContainer).getPropertyValue('width');
+  let height = getComputedStyle(squaresContainer).getPropertyValue('height');
+
+  for (let i = 1; i <= gridSize * gridSize; i++) {
+    const square = document.createElement('div');
+    square.style.width = `calc(${width} / ${gridSize})`;
+    square.style.height = `calc(${height} / ${gridSize})`;
+    square.style.filter = 'brightness(1.1)';
+    squaresContainer.append(square);
+  }
+} 
+
+function determinePen() {
+  if (mode === 'Normal') return normalPen;
+  if (mode === 'Color') return colorPen;
+  if (mode === 'Eraser') return erasePen;
+}
+
+function addEventListenersToSquares(e) {
+  // console.log('sC mousedown addEL, event is:', e.type, 'key:', e.buttons);
   e.preventDefault();
   const squares = Array.from(squaresContainer.children);
-  squares.forEach(square => square.addEventListener('mouseover', sketch))
+  squares.forEach(square => {
+    square.addEventListener('mousedown', determinePen());
+    square.addEventListener('mouseover', determinePen());
+  })
 }
 
-// mouseup on window, remove event listener from each square
-window.addEventListener('mouseup', removeEventListenerFromSquares);
-
-function removeEventListenerFromSquares(e) {
-  console.log('window mouseup removeEL, event is:', e.type, 'key:', e.buttons);
+function removeEventListenersFromSquares(e) {
+  // console.log('window mouseup removeEL, event is:', e.type, 'key:', e.buttons);
   const squares = Array.from(squaresContainer.children);
-  squares.forEach(square => square.removeEventListener('mouseover', sketch))
+  squares.forEach(square => {
+    square.removeEventListener('mousedown', determinePen());
+    square.removeEventListener('mouseover', determinePen());
+  })
 }
-
-// Disable context menu from getting triggered in squaresContainer
-squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
 
 function generateRgbNumber() {
   return Math.floor(Math.random() * 256);
@@ -92,18 +132,16 @@ function decreaseBrightness(square) {
   const pattern = /\((.*)\)/;
   const currBrightnessVal = Number(getComputedStyle(square).getPropertyValue('filter').match(pattern)[1]);
 
-  console.log('Curr BV', currBrightnessVal);
-
+  // If min brightness
   if (!currBrightnessVal) {
-    console.log('Min brightness');
     return;
   };
 
   const newBrightnessVal = currBrightnessVal - 0.1;
-
-  console.log('New BV', newBrightnessVal);
-
-  square.style.filter = `Brightness(${newBrightnessVal})`;
-
-  console.log('After update', getComputedStyle(square).getPropertyValue('filter'));
+  square.style.filter = `brightness(${newBrightnessVal})`;
 }
+
+// Footer
+const footerText = document.querySelector('.footer-text');
+const currDate = new Date().getFullYear();
+footerText.textContent = `Copyright Ⓒ ${currDate} Terence`;
