@@ -20,7 +20,7 @@ window.addEventListener('pointerup', removeEventListenersFromSquares);
 squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
 
 // Create squares with default grid size
-let defaultGridSize = 2;
+let defaultGridSize = 10;
 createSquares(defaultGridSize);
 
 // Custom grid size
