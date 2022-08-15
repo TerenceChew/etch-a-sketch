@@ -47,6 +47,7 @@ header {
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15), -2px 0 5px 1px rgba(0, 0, 0, 0.15);
   border-radius: .1rem;
   background-color: white;
+  touch-action: none;
 }
 
 .btns-container {

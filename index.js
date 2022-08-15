@@ -15,12 +15,12 @@ colorBtn.addEventListener('click', determineMode);
 eraserBtn.addEventListener('click', determineMode);
 inputBtn.addEventListener('click', getGridSize);
 resetBtn.addEventListener('click', resetSquares);
-squaresContainer.addEventListener('mousedown', addEventListenersToSquares, true);
-window.addEventListener('mouseup', removeEventListenersFromSquares);
+squaresContainer.addEventListener('pointerdown', addEventListenersToSquares, true);
+window.addEventListener('pointerup', removeEventListenersFromSquares);
 squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
 
 // Create squares with default grid size
-let defaultGridSize = 10;
+let defaultGridSize = 2;
 createSquares(defaultGridSize);
 
 // Custom grid size
@@ -46,7 +46,8 @@ function determineMode(e) {
 function normalPen(e) {
   e.preventDefault();
   let square = e.target;
-  // Only responds to left mousedown || mouseover
+  square.releasePointerCapture(e.pointerId);
+  // Only responds to left pointerdown || pointerover
   if (e.buttons === 1) {
     square.style.backgroundColor = 'black';
   }
@@ -56,7 +57,8 @@ function normalPen(e) {
 function colorPen(e) {
   e.preventDefault();
   let square = e.target;
-  // Only responds to left mousedown || mouseover
+  square.releasePointerCapture(e.pointerId);
+  // Only responds to left pointerdown || pointerover
   if (e.buttons === 1) {
     square.style.backgroundColor = generateRgbColor();
     decreaseBrightness(square);
@@ -67,7 +69,8 @@ function colorPen(e) {
 function erasePen(e) {
   e.preventDefault();
   let square = e.target;
-  // Only responds to left mousedown || mouseover
+  square.releasePointerCapture(e.pointerId);
+  // Only responds to left pointerdown || pointerover
   if (e.buttons === 1) {
     square.style.backgroundColor = 'white';
     square.style.filter = 'brightness(1.1)';
@@ -101,21 +104,21 @@ function determinePen() {
 }
 
 function addEventListenersToSquares(e) {
-  // console.log('sC mousedown addEL, event is:', e.type, 'key:', e.buttons);
+  console.log('sC pointerdown addEL, event is:', e.type, 'key:', e.buttons);
   e.preventDefault();
   const squares = Array.from(squaresContainer.children);
   squares.forEach(square => {
-    square.addEventListener('mousedown', determinePen());
-    square.addEventListener('mouseover', determinePen());
+    square.addEventListener('pointerdown', determinePen());
+    square.addEventListener('pointerover', determinePen());
   })
 }
 
 function removeEventListenersFromSquares(e) {
-  // console.log('window mouseup removeEL, event is:', e.type, 'key:', e.buttons);
+  console.log('window pointerup removeEL, event is:', e.type, 'key:', e.buttons);
   const squares = Array.from(squaresContainer.children);
   squares.forEach(square => {
-    square.removeEventListener('mousedown', determinePen());
-    square.removeEventListener('mouseover', determinePen());
+    square.removeEventListener('pointerdown', determinePen());
+    square.removeEventListener('pointerover', determinePen());
   })
 }
 
