@@ -6,14 +6,12 @@ const squaresContainer = document.querySelector('.squares-container');
 const normalBtn = document.querySelector('.normal');
 const colorBtn = document.querySelector('.color');
 const eraserBtn = document.querySelector('.eraser');
-const inputBtn = document.querySelector('.size');
 const resetBtn = document.querySelector('.reset');
 
 // Event listeners
 normalBtn.addEventListener('click', determineMode);
 colorBtn.addEventListener('click', determineMode);
 eraserBtn.addEventListener('click', determineMode);
-inputBtn.addEventListener('click', getGridSize);
 resetBtn.addEventListener('click', resetSquares);
 squaresContainer.addEventListener('pointerdown', addEventListenersToSquares, true);
 window.addEventListener('pointerup', removeEventListenersFromSquares);

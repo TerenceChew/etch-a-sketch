@@ -14,7 +14,7 @@
   <header class="center">Etch A Sketch</header>
   <main class="main-container center">
     <div class="squares-container center"></div>
-    <div class="btns-container center">
+    <div class="btns-slider-container center">
       <div class="center top-btn">
         <button class="btn normal">
           Normal
@@ -31,9 +31,8 @@
           Reset
         </button>
       </div>
-      <button class="btn size">
-        Enter Grid Size
-      </button>
+      <label for="slider">Grid Size:</label>
+      <input type="range" class="slider" id="slider" min="1" max="100">
     </div>
   </main>
   <footer class="center">
