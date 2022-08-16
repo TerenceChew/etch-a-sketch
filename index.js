@@ -148,7 +148,6 @@ function decreaseBrightness(square) {
 
   const newBrightnessVal = currBrightnessVal - 0.1;
   square.style.filter = `brightness(${newBrightnessVal})`;
-  console.log(newBrightnessVal)
 }
 
 // Footer
