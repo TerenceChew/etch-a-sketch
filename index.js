@@ -1,22 +1,25 @@
 // Mode determines which pen to use
-let mode = 'Color';
+let mode = 'color';
 
 // Custom grid size
 let gridSize;
 
+let inputColor = '#FF9494';
+
 // Selectors
 const squaresContainer = document.querySelector('.squares-container');
-const normalBtn = document.querySelector('.normal');
-const colorBtn = document.querySelector('.color');
+const colorInput = document.querySelector('.color-input');
 const eraserBtn = document.querySelector('.eraser');
+const rainbowBtn = document.querySelector('.rainbow');
 const resetBtn = document.querySelector('.reset');
 const sliderText = document.querySelector('.slider-text');
 const slider = document.querySelector('.slider');
 
 // Event listeners
-normalBtn.addEventListener('click', determineMode);
-colorBtn.addEventListener('click', determineMode);
+colorInput.addEventListener('input', getInputColor);
+colorInput.addEventListener('click', determineMode);
 eraserBtn.addEventListener('click', determineMode);
+rainbowBtn.addEventListener('click', determineMode);
 resetBtn.addEventListener('click', resetSquares);
 squaresContainer.addEventListener('pointerdown', addEventListenersToSquares, true);
 window.addEventListener('pointerup', removeEventListenersFromSquares);
@@ -43,24 +46,28 @@ function decreaseOpacityAndCreateSquares(e) {
   createSquares(gridSize);
 }
 
-function determineMode(e) {
-  mode = e.target.innerText;
+function getInputColor(e) {
+  inputColor = e.target.value;
 }
 
-// Black
-function normalPen(e) {
+function determineMode(e) {
+  mode = e.target.id;
+}
+
+// Single Color
+function colorPen(e) {
   e.preventDefault();
   let square = e.target;
   square.releasePointerCapture(e.pointerId);
   // Only responds to left pointerdown || pointerover
   if (e.buttons === 1) {
-    square.style.backgroundColor = 'black';
+    square.style.backgroundColor = `${inputColor}`;
     square.style.filter = 'brightness(1.1)';
   }
 }
 
 // Colorful 
-function colorPen(e) {
+function rainbowPen(e) {
   e.preventDefault();
   let square = e.target;
   square.releasePointerCapture(e.pointerId);
@@ -104,9 +111,9 @@ function createSquares(gridSize) {
 } 
 
 function determinePen() {
-  if (mode === 'Normal') return normalPen;
-  if (mode === 'Color') return colorPen;
-  if (mode === 'Eraser') return erasePen;
+  if (mode === 'color') return colorPen;
+  if (mode === 'rainbow') return rainbowPen;
+  if (mode === 'eraser') return erasePen;
 }
 
 function addEventListenersToSquares(e) {

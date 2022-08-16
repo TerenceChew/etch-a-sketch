@@ -14,25 +14,23 @@
   <header class="center">Etch A Sketch</header>
   <main class="main-container center">
     <div class="squares-container center"></div>
-    <div class="btns-slider-container center">
-      <div class="center top-btn">
-        <button class="btn normal">
-          Normal
-        </button>
-        <button class="btn color">
-          Color
-        </button>
-      </div>
-      <div class="center mid-btn">
-        <button class="btn eraser">
+    <div class="controls-container center">
+      <input type="color" class="color-input" id="color" value="#FF9494">
+      <div class="top-btns center">
+        <button class="btn eraser" id="eraser">
           Eraser
         </button>
+        <button class="btn rainbow" id="rainbow">
+          Rainbow
+        </button>
+      </div>
+      <div class="bottom-btns center">
         <button class="btn reset">
           Reset
         </button>
       </div>
       <label for="slider" class="slider-text">Grid Size:</label>
-      <input type="range" class="slider" id="slider" min="1" max="100">
+      <input type="range" class="slider" id="slider" min="1" max="80">
     </div>
   </main>
   <footer class="center">
