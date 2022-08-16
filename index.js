@@ -1,12 +1,17 @@
 // Mode determines which pen to use
 let mode = 'Color';
 
+// Custom grid size
+let gridSize;
+
 // Selectors
 const squaresContainer = document.querySelector('.squares-container');
 const normalBtn = document.querySelector('.normal');
 const colorBtn = document.querySelector('.color');
 const eraserBtn = document.querySelector('.eraser');
 const resetBtn = document.querySelector('.reset');
+const sliderText = document.querySelector('.slider-text');
+const slider = document.querySelector('.slider');
 
 // Event listeners
 normalBtn.addEventListener('click', determineMode);
@@ -16,24 +21,26 @@ resetBtn.addEventListener('click', resetSquares);
 squaresContainer.addEventListener('pointerdown', addEventListenersToSquares, true);
 window.addEventListener('pointerup', removeEventListenersFromSquares);
 squaresContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+slider.addEventListener('pointerdown', increaseOpacity);
+slider.addEventListener('input', getGridSize);
+slider.addEventListener('pointerup', decreaseOpacityAndCreateSquares);
 
 // Create squares with default grid size
 let defaultGridSize = 10;
 createSquares(defaultGridSize);
 
-// Custom grid size
-let gridSize;
+function increaseOpacity(e) {
+  e.target.classList.add('full-opacity');
+}
 
-// Prompt custom grid size
-function getGridSize() {
-  gridSize = Number(prompt('Enter Grid Size:', ''));
-  if (!gridSize) return;
-  if (gridSize > 100) {
-    alert('Grid size cannot exceed 100');
-    getGridSize();
-  } else {
-    createSquares(gridSize);
-  }
+function getGridSize(e) {
+  gridSize = e.target.value;
+  sliderText.innerText = `Grid Size: ${gridSize} x ${gridSize}`;
+}
+
+function decreaseOpacityAndCreateSquares(e) {
+  e.target.classList.remove('full-opacity');
+  createSquares(gridSize);
 }
 
 function determineMode(e) {
@@ -48,6 +55,7 @@ function normalPen(e) {
   // Only responds to left pointerdown || pointerover
   if (e.buttons === 1) {
     square.style.backgroundColor = 'black';
+    square.style.filter = 'brightness(1.1)';
   }
 }
 
@@ -82,7 +90,7 @@ function resetSquares() {
 
 // Create and append squares to squaresContainer
 function createSquares(gridSize) {
-  squaresContainer.textContent = '';
+  squaresContainer.innerText = '';
   let width = getComputedStyle(squaresContainer).getPropertyValue('width');
   let height = getComputedStyle(squaresContainer).getPropertyValue('height');
 
@@ -102,7 +110,7 @@ function determinePen() {
 }
 
 function addEventListenersToSquares(e) {
-  console.log('sC pointerdown addEL, event is:', e.type, 'key:', e.buttons);
+  // console.log('squaresContainer addEL, event is:', e.type, 'key:', e.buttons);
   e.preventDefault();
   const squares = Array.from(squaresContainer.children);
   squares.forEach(square => {
@@ -112,7 +120,7 @@ function addEventListenersToSquares(e) {
 }
 
 function removeEventListenersFromSquares(e) {
-  console.log('window pointerup removeEL, event is:', e.type, 'key:', e.buttons);
+  // console.log('window removeEL, event is:', e.type, 'key:', e.buttons);
   const squares = Array.from(squaresContainer.children);
   squares.forEach(square => {
     square.removeEventListener('pointerdown', determinePen());
@@ -140,9 +148,10 @@ function decreaseBrightness(square) {
 
   const newBrightnessVal = currBrightnessVal - 0.1;
   square.style.filter = `brightness(${newBrightnessVal})`;
+  console.log(newBrightnessVal)
 }
 
 // Footer
 const footerText = document.querySelector('.footer-text');
 const currDate = new Date().getFullYear();
-footerText.textContent = `Copyright Ⓒ ${currDate} Terence`;
+footerText.innerText = `Copyright Ⓒ ${currDate} Terence`;
