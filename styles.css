@@ -112,7 +112,7 @@ header {
   transform: scale(1.025);
 }
 
-label[for=slider] {
+label[for="slider"] {
   margin-top: .5rem;
   font-family: 'Russo One', sans-serif;
   font-size: 1.1rem;
