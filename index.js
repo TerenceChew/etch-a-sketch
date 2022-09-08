@@ -108,7 +108,15 @@ function toggleLines() {
 
 // Reset squares to default color
 function resetSquares() {
-  createSquares(gridSize || defaultGridSize);
+  let currSquares = document.querySelectorAll('.squares-container div');
+
+  currSquares.forEach(square => {
+    square.classList.add('animate');
+  })
+
+  setTimeout(() => {
+    createSquares(gridSize || defaultGridSize);
+  }, 2000)
 }
 
 // Create and append squares to squaresContainer
