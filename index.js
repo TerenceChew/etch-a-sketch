@@ -4,13 +4,16 @@ let mode = 'color';
 // Custom grid size
 let gridSize;
 
+// Default settings
 let inputColor = '#FF9494';
+let showLines = false;
 
 // Selectors
 const squaresContainer = document.querySelector('.squares-container');
 const colorInput = document.querySelector('.color-input');
 const eraserBtn = document.querySelector('.eraser');
 const rainbowBtn = document.querySelector('.rainbow');
+const linesBtn = document.querySelector('.lines');
 const resetBtn = document.querySelector('.reset');
 const sliderText = document.querySelector('.slider-text');
 const slider = document.querySelector('.slider');
@@ -20,6 +23,7 @@ colorInput.addEventListener('input', getInputColor);
 colorInput.addEventListener('click', determineMode);
 eraserBtn.addEventListener('click', determineMode);
 rainbowBtn.addEventListener('click', determineMode);
+linesBtn.addEventListener('click', toggleLines);
 resetBtn.addEventListener('click', resetSquares);
 squaresContainer.addEventListener('pointerdown', addEventListenersToSquares, true);
 window.addEventListener('pointerup', removeEventListenersFromSquares);
@@ -90,6 +94,18 @@ function erasePen(e) {
   }
 }
 
+// Toggle lines
+function toggleLines() {
+  showLines = !showLines;
+  let currSquares = document.querySelectorAll('.squares-container div');
+  
+  currSquares.forEach(square => {
+    square.classList.toggle('lines');
+  })
+
+  squaresContainer.classList.toggle('borders');
+}
+
 // Reset squares to default color
 function resetSquares() {
   createSquares(gridSize || defaultGridSize);
@@ -98,6 +114,7 @@ function resetSquares() {
 // Create and append squares to squaresContainer
 function createSquares(gridSize) {
   squaresContainer.innerText = '';
+
   let width = getComputedStyle(squaresContainer).getPropertyValue('width');
   let height = getComputedStyle(squaresContainer).getPropertyValue('height');
 
@@ -107,6 +124,18 @@ function createSquares(gridSize) {
     square.style.height = `calc(${height} / ${gridSize})`;
     square.style.filter = 'brightness(1.1)';
     squaresContainer.append(square);
+  }
+
+  if (showLines) {
+    let currSquares = document.querySelectorAll('.squares-container div');
+
+    currSquares.forEach(square => {
+      square.classList.add('lines');
+    })
+
+    squaresContainer.classList.add('borders');
+  } else {
+    squaresContainer.classList.remove('borders');
   }
 } 
 

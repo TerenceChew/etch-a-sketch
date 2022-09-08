@@ -20,8 +20,18 @@ body {
   align-items: center;
 }
 
+.lines {
+  border: solid rgba(0, 0, 0, 0.35);
+  border-width: 1px 0 0 1px;
+}
+
+.borders {
+  border: solid rgba(0, 0, 0, 0.35);
+  border-width: 1px 2px 2px 1px;
+}
+
 header {
-  padding: 1rem .35rem;
+  padding: .5rem .35rem;
   font-family: 'Shadows Into Light', cursive;
   font-size: 2rem;
   word-spacing: .15rem;
@@ -41,8 +51,11 @@ header {
 }
 
 .squares-container {
+  margin-right: -1px;
+  box-sizing: content-box;
   width: 15.5rem;
   height: 15.5rem;
+  display: flex;
   flex-wrap: wrap;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15), -2px 0 5px 1px rgba(0, 0, 0, 0.15);
   border-radius: .1rem;
@@ -52,7 +65,7 @@ header {
 
 .controls-container {
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.1rem;
 }
 
 .color-input {
@@ -76,26 +89,25 @@ header {
   border-radius: 2rem;
 }
 
-.top-btns {
-  gap: 1.25rem;
+.top-btns,
+.bottom-btns {
+  gap: 1.1rem;
 }
 
-.eraser:focus, .rainbow:focus {
+.eraser:focus,
+.rainbow:focus {
   color: crimson;
   text-shadow: none;
 }
 
-.bottom-btns, .reset {
-  width: 100%;
-}
-
-.reset:active {
+.reset:active,
+.lines:active {
   color: crimson;
   text-shadow: none;
 }
 
 .btn {
-  min-width: 7.15rem;
+  min-width: 7.35rem;
   padding: .55rem .75rem;
   border: .15rem solid black;
   border-radius: .5rem;
