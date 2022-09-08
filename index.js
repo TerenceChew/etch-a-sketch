@@ -158,6 +158,6 @@ function decreaseBrightness(square) {
 }
 
 // Footer
-const footerText = document.querySelector('.footer-text');
-const currDate = new Date().getFullYear();
-footerText.innerText = `Copyright Ⓒ ${currDate} Terence`;
+const currYearSpan = document.querySelector('.curr-year');
+const currYear = new Date().getFullYear();
+currYearSpan.innerText = `${currYear}`;

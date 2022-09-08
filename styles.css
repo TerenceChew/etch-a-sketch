@@ -164,6 +164,12 @@ footer {
   font-family: 'JetBrains Mono', monospace;
 }
 
+.copyright-icon {
+  font-size: 1.5rem;
+  vertical-align: sub;
+  font-family: monospace;
+}
+
 .footer-text, .fa-github {
   color: white;
 }
