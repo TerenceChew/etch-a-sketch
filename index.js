@@ -212,4 +212,4 @@ function decreaseBrightness(square) {
 // Footer
 const currYearSpan = document.querySelector('.curr-year');
 const currYear = new Date().getFullYear();
-currYearSpan.innerText = `${currYear}`;
+currYearSpan.innerText = currYear;
