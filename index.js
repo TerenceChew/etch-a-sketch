@@ -5,7 +5,7 @@ let mode = 'color';
 let gridSize;
 
 // Default settings
-let inputColor = '#FF9494';
+let inputColor = '#ffb01e';
 let showLines = false;
 
 // Selectors
@@ -15,7 +15,7 @@ const eraserBtn = document.querySelector('.eraser');
 const rainbowBtn = document.querySelector('.rainbow');
 const linesBtn = document.querySelector('.lines');
 const resetBtn = document.querySelector('.reset');
-const sliderText = document.querySelector('.slider-text');
+const sliderSpan = document.querySelector('.slider-text span');
 const slider = document.querySelector('.slider');
 
 // Event listeners
@@ -42,7 +42,20 @@ function increaseOpacity(e) {
 
 function getGridSize(e) {
   gridSize = e.target.value;
-  sliderText.innerText = `Grid Size: ${gridSize} x ${gridSize}`;
+  sliderSpan.innerText = ` ${gridSize} x ${gridSize}`;
+}
+
+function setBtnStyle(mode) {
+  if (mode === 'eraser') {
+    eraserBtn.style.color = 'white';
+    rainbowBtn.style.color = 'black';
+  } else if (mode === 'rainbow') {
+    eraserBtn.style.color = 'black';
+    rainbowBtn.style.color = 'white';
+  } else {
+    eraserBtn.style.color = 'black';
+    rainbowBtn.style.color = 'black';
+  }
 }
 
 function decreaseOpacityAndCreateSquares(e) {
@@ -56,6 +69,8 @@ function getInputColor(e) {
 
 function determineMode(e) {
   mode = e.target.id;
+
+  setBtnStyle(mode);
 }
 
 // Single Color
@@ -116,7 +131,7 @@ function resetSquares() {
 
   setTimeout(() => {
     createSquares(gridSize || defaultGridSize);
-  }, 2000)
+  }, 1500);
 }
 
 // Create and append squares to squaresContainer
