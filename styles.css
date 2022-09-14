@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Russo+One&family=Shadows+Into+Light&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;800&family=Russo+One&family=Shadows+Into+Light&family=Press+Start+2P&family=PT+Mono&display=swap');
 
 *,
 *::before,
@@ -185,9 +185,9 @@ footer {
 }
 
 .copyright-icon {
-  font-size: 24px;
+  font-size: 32px;
   vertical-align: sub;
-  font-family: monospace;
+  font-family: 'PT Mono', monospace;
 }
 
 .footer-text, .fa-github {
