@@ -119,7 +119,7 @@ header {
   background-color: rgb(255, 176, 30);
   word-spacing: 4px;
   font-family: 'Russo One', sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform .7s;
 }
@@ -131,7 +131,7 @@ header {
 label[for="slider"] {
   margin-top: 10px;
   font-family: 'Russo One', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: white;
 }
 
@@ -185,7 +185,7 @@ footer {
 }
 
 .copyright-icon {
-  font-size: 32px;
+  font-size: 2rem;
   vertical-align: sub;
   font-family: 'PT Mono', monospace;
 }
@@ -219,7 +219,7 @@ footer {
   }
   .btn {
     min-width: 135px;
-    font-size: 18px;
+    font-size: 1.1rem;
   }
 }
 
